@@ -26,7 +26,7 @@ color dead = color(0);
 
 // Array of cells
 int[][] cells; 
-// Buffer to record the state of the cells and use this while changing the others in the interations
+// Buffer to record the state of the cells and use this while changing the others in the iterations
 int[][] cellsBuffer; 
 
 // Pause
@@ -44,20 +44,17 @@ void setup() {
 
   noSmooth();
 
-  // Initialization of cells
-  for (int x=0; x<width/cellSize; x++) {
-    for (int y=0; y<height/cellSize; y++) {
-      float state = random (100);
-      if (state > probabilityOfAliveAtStart) { 
-        state = 0;
-      }
-      else {
-        state = 1;
-      }
-      cells[x][y] = int(state); // Save state of each cell
-    }
-  }
+  // randomly initialize cells
+  random_init();
   background(0); // Fill in black in case cells don't cover all the windows
+}
+
+void random_init() {
+  for (int x=0; x<width/cellSize; x++) {
+      for (int y=0; y<height/cellSize; y++) {
+        cells[x][y] = (random(100) < probabilityOfAliveAtStart) ? 1 : 0;
+      }
+    }
 }
 
 
@@ -125,7 +122,7 @@ void iteration() { // When the clock ticks
   for (int x=0; x<width/cellSize; x++) {
     for (int y=0; y<height/cellSize; y++) {
       // And visit all the neighbours of each cell
-      int neighbours = 0; // We'll count the neighbours
+      int neighbours = 0; // We'll count the living neighbours
       for (int xx=x-1; xx<=x+1;xx++) {
         for (int yy=y-1; yy<=y+1;yy++) {  
           if (((xx>=0)&&(xx<width/cellSize))&&((yy>=0)&&(yy<height/cellSize))) { // Make sure you are not out of bounds
@@ -155,18 +152,7 @@ void iteration() { // When the clock ticks
 void keyPressed() {
   if (key=='r' || key == 'R') {
     // Restart: reinitialization of cells
-    for (int x=0; x<width/cellSize; x++) {
-      for (int y=0; y<height/cellSize; y++) {
-        float state = random (100);
-        if (state > probabilityOfAliveAtStart) {
-          state = 0;
-        }
-        else {
-          state = 1;
-        }
-        cells[x][y] = int(state); // Save state of each cell
-      }
-    }
+    random_init();
   }
   if (key==' ') { // On/off of pause
     pause = !pause;

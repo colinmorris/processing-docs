@@ -18,6 +18,8 @@ void setup() {
   imageMode(CENTER);
   noStroke();
   background(255);
+  // Call draw() 1024 times per second (up from default of 30)
+  frameRate(1024);
 }
 
 void draw() { 

@@ -47,4 +47,5 @@ void draw() {
       counter++;
     }
   }
+  noLoop();
 }

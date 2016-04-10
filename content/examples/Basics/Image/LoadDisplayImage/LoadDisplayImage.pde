@@ -5,7 +5,7 @@
  * or any other size. 
  */
 
-PImage img;  // Declare variable "a" of type PImage
+PImage img;  // Declare variable "img" of type PImage
 
 void setup() {
   size(640, 360);
